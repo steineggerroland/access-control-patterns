@@ -27,9 +27,9 @@ Folgende Zwänge wirken auf die Lösung ein:
 
 Lege für die **schützenswerte Ressource** fest, welche **Subjekte** für welche Aktionen in welchem **Kontext** **Rechte** besitzen und somit autorisiert sind. 
 
-Dieser Zusammenhang ist in der Strukturbeschreibung des Musters in der folgenden Abbildung dargestellt:
+Dieser Zusammenhang ist in der Strukturbeschreibung des Musters dargestellt:
 
-![Struktur der Autorisationsbeschreibung](figure/Autorisationsbeschreibung_struktur.png)
+![Struktur der Autorisationsbeschreibung](figure/autorisationsbeschreibung_struktur.png)
 
 ### Konsequenzen
 
