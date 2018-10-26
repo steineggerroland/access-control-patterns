@@ -365,12 +365,10 @@ Wie können die Rechte der Subjekte auf schützenswerte Ressourcen verwaltet wer
 Folgende Zwänge wirken auf die Lösung ein:
 
 * **Integrität:** Die Veränderung der Rechte kann verheerende Folgen für die betroffenen schützenswerten Ressourcen haben. Es soll vermieden werden, dass unberechtigt Rechte erstellt oder geändert werden.
-* **Vertraulichkeit:** Über die Rechte von Subjekten lassen sicherheitsrelevante Rückschlüsse auf das System oder die einsetzende Organisation ziehen, somit sollen sie nur Autorisierten zugänglich sein.
-* **Verfügbarkeit:** Die Prüfung der Autorisation ist bei der Zugangs- und Zugriffskontrolle und somit das Abfragen der Autorisation ist eine zentrale Querschnittfunktionalität und hat direkten Einfluss auf die Verfügbarkeit der fachlichen Anwendung. Das Laden der Rechte soll durchgehend möglich sein.
+* **Vertraulichkeit:** Über die Rechte von Subjekten lassen sich sicherheitsrelevante Rückschlüsse auf das System oder die einsetzende Organisation ziehen, somit sollen sie nur Autorisierten zugänglich sein.
+* **Verfügbarkeit:** Die Prüfung der Autorisation ist eine zentrale Querschnittfunktionalität und hat direkten Einfluss auf die Verfügbarkeit der fachlichen Anwendung. Jede Zugangs- und Zugriffskontrolle erfordert das Prüfen der Autorisation. Das Laden der Rechte soll durchgehend möglich sein.
 * **Skalierbarkeit:** Das System soll mit der Anzahl der verwalteten Rechte skalieren.
 * **Speicherverbrauch:** Die abgelegten Rechte sollen wenig Speicher verbrauchen.
-* **Betriebskosten:** Die Betriebskosten einer Lösung soll möglichst gering sein.
-* **Implementierungskosten:** Die Kosten zur Implementierung des Systems sollen möglichst gering sein.
 
 ### Lösung
 
