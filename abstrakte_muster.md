@@ -1,69 +1,5 @@
 # Abstrakte Zugangs- und Zugriffskontrollmuster
 
-## Autorisationsdurchsetzer
-
-Der _Autorisationsdurchsetzer_ prüft Anfragen auf deren Autorisation und leitet diese entweder an ein geschütztes System weiter oder verweigert den Zugriff. Das Muster ist ein abstraktes Sicherheitsmuster [FY+14] und bildet den Rahmen für verschiedene Spezialisierungen.
-
-*Auch bekannt als: Reference Monitor, Policy Enforcement Point, Authorization Enforcer*
-
-### Kontext
-
-Ein System, das eine schützenswerte Schnittstelle anbietet.
-Der Begriff System ist abstrakt zu verstehen und soll durch Musterspezialisierungen eingeschränkt werden.
-Spezielle Systeme können beispielsweise große Unternehmens-Anwendungslandschaften, die öffentliche Schnittstellen 
-anbieten, aber auch Objekte mit definierter Schnittstelle innerhalb einer Anwendung sein.
-
-### Problem
-
-Wie kann der Zugang zum System bzw. Zugriff auf die Schnittstelle vor Missbrauch geschützt werden?
-Das System hat eine schützenswerte Schnittstelle, die hinsichtlich der Sicherheitsziele Integrität, Vertraulichkeit
-oder Verfügbarkeit geschützt werden sollen. Für die Schnittstelle wurden deshalb Autorisationsregeln basierend auf den
-Schutzzielen spezifiziert. Wie können diese Regeln durchgesetzt werden?
-
-### Zwänge
-
-Folgende Zwänge wirken auf die Lösung ein:
-
-* **Sicherheit:** Für das System müssen bestimmte Schutzziele eingehalten werden. Die Durchsetzung der Autorisation muss ein sicherer Mechanismus sein und sollte möglichst nicht korrumpiert werden können.
-* **Benutzbarkeit:** Die Benutzbarkeit der Schnittstelle soll nicht beeinträchtigt werden.
-* **Antwortzeit:** Die Antwortzeit des Systems soll nicht beeinträchtigt werden.
-
-
-### Lösung
-
-Alle Anfragen an die **schützenswerte Ressource** werden vom **Autorisationsdurchsetzer** abgefangen und auf ihre **Autorisation** hin überprüft. Hierzu werden die relevanten **Rechte** für die Überprüfung von der **Rechteablage** geladen. Autorisierte Anfragen werden an die **geschützte Ressource** weitergeleitet und unautorisierte Anfragen abgewiesen. Falls für die Überprüfung der Autorisation die Accountinformationen des anfragenden **Subjekts** benötigt werden, wird eine Authentifizierung eingeleitet.
-
-Die Struktur des Autorisationsdurchsetzers ist auf der folgenden Abbildung dargestellt.
-
-![Struktur des Autorisationsdurchsetzers](figure/Autorisationsdurchsetzer_struktur.png)
-
-
-Nachstehend ist der Ablauf zur Durchsetzung der Autorisation skizziert.
-
-![Dynamische Abläufe des Autorisationsdurchsetzers](figure/Autorisationsdurchsetzer_dynamik.png)
-
-
-### Konsequenzen
-
-Folgende Erleichterungen bringt die Anwendung des Musters:
-
-* **Sicherheit:** Die Autorisation wird durchgesetzt und somit wird für eine aktive Einhaltung der Schutzziele gesorgt.
-
-Das Muster bringt folgende Lasten:
-
-* **Sicherheit:** Schwachstellen bei der Umsetzung des Autorisationsdurchsetzers können direkt die Schutzziele der Ressourcen beeinträchtigen und schwere Folgen haben. 
-* **Benutzbarkeit:** Durch die Kontrolle des Zugangs und Zugriffs werden vom Aufrufer in einigen Fällen Zusatzinformationen benötigt und so die Benutzbarkeit gemindert.
-* **Antwortzeit:** Der Aufwand zur Prüfung der Autorisation erhöht die Antwortzeit des geschützten Systems.
-
-### Verwandte Muster
-
-* Falls zur Überprüfung der Autorisation Identitätsinformationen über das aufrufende Subjekt benötigt werden, wird ein **Authentifizierer** eingesetzt.
-* Zur Beschreibung der Autorisation wird eine Spezialisierung des Musters zur **Autorisationsbeschreibung** verwendet.
-* Die Autorisation für das System wird mit einem **Autorisierer** festgelegt.
-* Zur gesicherten Protokollierung von Anfragen kann ein **Sicherheitslogger und -auditor** verwendet werden.
-
-
-------------------------------------------------------------------------------
 ## Autorisationsbeschreibung
 
 Mit der **Autorisationsbeschreibung** wird spezifiziert, welche Subjekte auf eine schützenswerte Ressource in welcher Form zugreifen dürfen. Die Autorisationsbeschreibung ist ein abstraktes Muster und gibt kontextabhängigen, komplexen
@@ -345,6 +281,70 @@ Das Muster bringt folgende Lasten:
 	\item Die \emph{Attribute-Based Access Control (ABAC)} \cite{YT05} ergänzt dieses Muster um die Durchsetzung der 
 				Autorisation. Bei ABAC wird davon ausgegangen, dass die Autorisationsbeschreibung für das komplette System
 				einheitlich ist.
+
+
+------------------------------------------------------------------------------
+## Autorisationsdurchsetzer
+
+Der _Autorisationsdurchsetzer_ prüft Anfragen auf deren Autorisation und leitet diese entweder an ein geschütztes System weiter oder verweigert den Zugriff. Das Muster ist ein abstraktes Sicherheitsmuster [FY+14] und bildet den Rahmen für verschiedene Spezialisierungen.
+
+*Auch bekannt als: Reference Monitor, Policy Enforcement Point, Authorization Enforcer*
+
+### Kontext
+
+Ein System, das eine schützenswerte Schnittstelle anbietet.
+Der Begriff System ist abstrakt zu verstehen und soll durch Musterspezialisierungen eingeschränkt werden.
+Spezielle Systeme können beispielsweise große Unternehmens-Anwendungslandschaften, die öffentliche Schnittstellen 
+anbieten, aber auch Objekte mit definierter Schnittstelle innerhalb einer Anwendung sein.
+
+### Problem
+
+Wie kann der Zugang zum System bzw. Zugriff auf die Schnittstelle vor Missbrauch geschützt werden?
+Das System hat eine schützenswerte Schnittstelle, die hinsichtlich der Sicherheitsziele Integrität, Vertraulichkeit
+oder Verfügbarkeit geschützt werden sollen. Für die Schnittstelle wurden deshalb Autorisationsregeln basierend auf den
+Schutzzielen spezifiziert. Wie können diese Regeln durchgesetzt werden?
+
+### Zwänge
+
+Folgende Zwänge wirken auf die Lösung ein:
+
+* **Sicherheit:** Für das System müssen bestimmte Schutzziele eingehalten werden. Die Durchsetzung der Autorisation muss ein sicherer Mechanismus sein und sollte möglichst nicht korrumpiert werden können.
+* **Benutzbarkeit:** Die Benutzbarkeit der Schnittstelle soll nicht beeinträchtigt werden.
+* **Antwortzeit:** Die Antwortzeit des Systems soll nicht beeinträchtigt werden.
+
+
+### Lösung
+
+Alle Anfragen an die **schützenswerte Ressource** werden vom **Autorisationsdurchsetzer** abgefangen und auf ihre **Autorisation** hin überprüft. Hierzu werden die relevanten **Rechte** für die Überprüfung von der **Rechteablage** geladen. Autorisierte Anfragen werden an die **geschützte Ressource** weitergeleitet und unautorisierte Anfragen abgewiesen. Falls für die Überprüfung der Autorisation die Accountinformationen des anfragenden **Subjekts** benötigt werden, wird eine Authentifizierung eingeleitet.
+
+Die Struktur des Autorisationsdurchsetzers ist auf der folgenden Abbildung dargestellt.
+
+![Struktur des Autorisationsdurchsetzers](figure/Autorisationsdurchsetzer_struktur.png)
+
+
+Nachstehend ist der Ablauf zur Durchsetzung der Autorisation skizziert.
+
+![Dynamische Abläufe des Autorisationsdurchsetzers](figure/Autorisationsdurchsetzer_dynamik.png)
+
+
+### Konsequenzen
+
+Folgende Erleichterungen bringt die Anwendung des Musters:
+
+* **Sicherheit:** Die Autorisation wird durchgesetzt und somit wird für eine aktive Einhaltung der Schutzziele gesorgt.
+
+Das Muster bringt folgende Lasten:
+
+* **Sicherheit:** Schwachstellen bei der Umsetzung des Autorisationsdurchsetzers können direkt die Schutzziele der Ressourcen beeinträchtigen und schwere Folgen haben. 
+* **Benutzbarkeit:** Durch die Kontrolle des Zugangs und Zugriffs werden vom Aufrufer in einigen Fällen Zusatzinformationen benötigt und so die Benutzbarkeit gemindert.
+* **Antwortzeit:** Der Aufwand zur Prüfung der Autorisation erhöht die Antwortzeit des geschützten Systems.
+
+### Verwandte Muster
+
+* Falls zur Überprüfung der Autorisation Identitätsinformationen über das aufrufende Subjekt benötigt werden, wird ein **Authentifizierer** eingesetzt.
+* Zur Beschreibung der Autorisation wird eine Spezialisierung des Musters zur **Autorisationsbeschreibung** verwendet.
+* Die Autorisation für das System wird mit einem **Autorisierer** festgelegt.
+* Zur gesicherten Protokollierung von Anfragen kann ein **Sicherheitslogger und -auditor** verwendet werden.
 
 
 ------------------------------------------------------------------------------
